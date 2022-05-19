@@ -1,16 +1,9 @@
 package ecb.amw.SOAECBSpringBootAPI.dao.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-@Entity
 public class Currency {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String date;
     private String from;
     private String to;
@@ -40,5 +33,21 @@ public class Currency {
 
     public double getRate() {
         return rate;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 }
