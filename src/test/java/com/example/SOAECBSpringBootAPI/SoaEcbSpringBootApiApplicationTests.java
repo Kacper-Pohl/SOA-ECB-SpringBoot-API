@@ -1,10 +1,10 @@
-package com.example.demo;
+package com.example.SOAECBSpringBootAPI;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class SoaEcbSpringBootApiApplicationTests {
 
 	@Test
 	void contextLoads() {
