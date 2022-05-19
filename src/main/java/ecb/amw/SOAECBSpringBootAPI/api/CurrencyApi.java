@@ -1,18 +1,53 @@
 package ecb.amw.SOAECBSpringBootAPI.api;
 
 
-import ecb.amw.SOAECBSpringBootAPI.manager.CurrencyManager;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ecb.amw.SOAECBSpringBootAPI.SQLiteOperations;
+import ecb.amw.SOAECBSpringBootAPI.dao.entity.Currency;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+
 
 @RestController
-@RequestMapping("/api/currency")
-public class CurrencyApi {
+@RequestMapping("/api/currency/rates")
+public class CurrencyApi extends SQLiteOperations {
 
-    private CurrencyManager currency;
+    public CurrencyApi()throws Exception{
+
+    }
+
+    protected static Currency currencyToEuro(Currency currency){
+        double rate = 1/ currency.getRate();
+        Currency swap = new Currency(currency.getDate(), currency.getTo(), currency.getFrom(),rate);
+        return swap;
+    }
+    protected static Currency currencyToCurrency(Currency fromCurrency, Currency toCurrency){
+        Currency swap;
+        double rate = toCurrency.getRate()/ fromCurrency.getRate();
+        swap = new Currency(fromCurrency.getDate(), fromCurrency.getTo(), toCurrency.getTo(), rate);
+        return swap;
+    }
+
+    LocalDate today = LocalDate.now();
+    String string2Date = today.toString();
+
+    @GetMapping("{currencyFrom}/{currencyTo}")
+    @ResponseBody
+    public Currency endpointhistorical(@PathVariable String currencyFrom, @PathVariable String currencyTo){
+
+        Currency currency = new Currency();
+        if(currencyFrom.equals("EUR")) {
+            currency = readData(string2Date, currencyTo);
+        } else if(currencyTo.equals("EUR")){
+            currency = readData(string2Date,currencyFrom);
+            currency = currencyToEuro(currency);
+        }else {
+            Currency exFrom = readData(string2Date,currencyFrom);
+            Currency exTo = readData(string2Date,currencyTo);
+            currency = currencyToCurrency(exFrom,exTo);
+        }
+        return currency;
+    }
 
 
 }
