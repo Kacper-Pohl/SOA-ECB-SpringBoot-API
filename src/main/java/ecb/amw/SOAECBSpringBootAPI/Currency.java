@@ -1,4 +1,4 @@
-package ecb.amw.SOAECBSpringBootAPI.dao.entity;
+package ecb.amw.SOAECBSpringBootAPI;
 
 
 

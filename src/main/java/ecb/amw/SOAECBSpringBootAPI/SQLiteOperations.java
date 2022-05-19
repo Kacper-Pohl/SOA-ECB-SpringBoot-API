@@ -1,7 +1,5 @@
 package ecb.amw.SOAECBSpringBootAPI;
 
-import ecb.amw.SOAECBSpringBootAPI.dao.entity.Currency;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

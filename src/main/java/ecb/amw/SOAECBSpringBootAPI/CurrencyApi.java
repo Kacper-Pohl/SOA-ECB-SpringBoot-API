@@ -1,8 +1,8 @@
-package ecb.amw.SOAECBSpringBootAPI.api;
+package ecb.amw.SOAECBSpringBootAPI;
 
 
 import ecb.amw.SOAECBSpringBootAPI.SQLiteOperations;
-import ecb.amw.SOAECBSpringBootAPI.dao.entity.Currency;
+import ecb.amw.SOAECBSpringBootAPI.Currency;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
