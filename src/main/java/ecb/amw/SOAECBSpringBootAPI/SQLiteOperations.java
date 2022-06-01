@@ -13,7 +13,7 @@ public class SQLiteOperations {
 
         String newDate;
         try {
-            connect = DriverManager.getConnection("jdbc:sqlite:E:/Studia/Repo/GitHub/SOA-ECB-SpringBoot-Consumer/ECB-Consumer/EbcDB.db");
+            connect = DriverManager.getConnection("jdbc:sqlite:C:/Users/bchan/Desktop/SOA-ECB-SpringBoot-Consumer/ECB-Consumer/EbcDB.db");
             status = connect.createStatement();
             String selectSQL = "SELECT * from CURRENCIES " + "where Date =='" + date + "' and ToCurrency == '" + to + "';";
             ResultSet result = status.executeQuery(selectSQL);

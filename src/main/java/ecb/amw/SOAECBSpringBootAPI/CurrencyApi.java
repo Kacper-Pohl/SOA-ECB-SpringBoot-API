@@ -30,10 +30,12 @@ public class CurrencyApi extends SQLiteOperations {
 
     LocalDate today = LocalDate.now();
     String string2Date = today.toString();
+    String userDate = today.toString();
+    String message = "";
 
     @GetMapping("{currencyFrom}/{currencyTo}")
     @ResponseBody
-    public Currency endpointhistorical(@PathVariable String currencyFrom, @PathVariable String currencyTo){
+    public String endPoint(@PathVariable String currencyFrom, @PathVariable String currencyTo){
 
         Currency currency = new Currency();
         if(currencyFrom.equals("EUR")) {
@@ -46,7 +48,28 @@ public class CurrencyApi extends SQLiteOperations {
             Currency exTo = readData(string2Date,currencyTo);
             currency = currencyToCurrency(exFrom,exTo);
         }
-        return currency;
+        message = "Current exchange rate from " + currencyFrom + " to " + currencyTo + " is: " + currency.getRate();
+        return message;
+    }
+
+    @GetMapping("{year}/{month}/{day}/{currencyFrom}/{currencyTo}")
+    @ResponseBody
+    public String endPointHistorical(@PathVariable String year, @PathVariable String month, @PathVariable String day, @PathVariable String currencyFrom, @PathVariable String currencyTo){
+
+        userDate = year + "-" + month + "-" + day;
+        Currency currency = new Currency();
+        if(currencyFrom.equals("EUR")) {
+            currency = readData(userDate, currencyTo);
+        } else if(currencyTo.equals("EUR")){
+            currency = readData(userDate,currencyFrom);
+            currency = currencyToEuro(currency);
+        }else {
+            Currency exFrom = readData(userDate,currencyFrom);
+            Currency exTo = readData(userDate,currencyTo);
+            currency = currencyToCurrency(exFrom,exTo);
+        }
+        message = "Currency rate for date: " + userDate + " from " + currencyFrom + " to " + currencyTo + " is: " + currency.getRate();
+        return message;
     }
 
 
